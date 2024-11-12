@@ -6,10 +6,15 @@ import fetch from 'node-fetch'
 import { ConnectionError } from './errors/connection-error'
 import { RateLimitedError } from './errors/rate-limited-error'
 import { ServerError } from './errors/server-error'
+import { UnexpectedError } from './errors/unexpected-error'
 import { UserNotFoundError } from './errors/user-not-found-error'
 
 type FetchUserUseCaseResponse = Either<
-  RateLimitedError | UserNotFoundError,
+  | RateLimitedError
+  | UserNotFoundError
+  | ServerError
+  | ConnectionError
+  | UnexpectedError,
   {
     user: DiscordUserProfile
   }
@@ -46,7 +51,7 @@ export async function FetchUserProfileInfo({
         case 0:
           return left(new ConnectionError())
         default:
-          return left(new Error('An unexpected error occurred'))
+          return left(new UnexpectedError())
       }
     }
 
