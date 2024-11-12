@@ -1,6 +1,7 @@
 import { badges, badgesvalidation, emojis } from '@/core/types/badges.types'
 import type { client } from '@/core/types/client.types'
 import { getBoost, getSignature } from '@/core/value-objects/get-boost-account'
+import { env } from '@/infra/config/env'
 import { Prisma } from '@/infra/database/prisma/prisma-connection'
 import { RateLimitedError } from '@user/application/use-cases/errors/rate-limited-error'
 import { UserNotFoundError } from '@user/application/use-cases/errors/user-not-found-error'
@@ -16,7 +17,6 @@ import {
 } from 'discord.js'
 import { Client } from 'discord.js-selfbot-v13'
 import { type ArgsOf, Discord, On } from 'discordx'
-import { env } from '@/infra/config/env'
 
 @Discord()
 export class InteractionCreateEvent {
@@ -520,8 +520,8 @@ export class InteractionCreateEvent {
   }
 
   private async findUserInDatabase(interaction: any): Promise<any> {
-    const userId = interaction.user.id;
-    const user = await Prisma.users.findFirst({ where: { id: userId } });
+    const userId = interaction.user.id
+    const user = await Prisma.users.findFirst({ where: { id: userId } })
 
     if (!user) {
       const userData = {
@@ -531,19 +531,18 @@ export class InteractionCreateEvent {
         channelId: null,
         guildId: null,
         isOwner: userId === env.OWNER_ID,
-      };
+      }
 
-      await Prisma.users.create({ data: userData });
+      await Prisma.users.create({ data: userData })
     }
 
-
-    return user;
+    return user
   }
 
   private async handleInteractionError(interaction: any): Promise<void> {
     if (interaction.isCommand()) {
       await interaction.reply({
-        content: 'User not found in the database.',
+        content: 'User create in my database, use the command again.',
         ephemeral: true,
       })
     }
