@@ -3,7 +3,9 @@ import { env } from '@/infra/config/env'
 import type { DiscordUserProfile } from '@user/enterprise/entities/user-profile'
 import { HttpsProxyAgent } from 'https-proxy-agent'
 import fetch from 'node-fetch'
+import { ConnectionError } from './errors/connection-error'
 import { RateLimitedError } from './errors/rate-limited-error'
+import { ServerError } from './errors/server-error'
 import { UserNotFoundError } from './errors/user-not-found-error'
 
 type FetchUserUseCaseResponse = Either<
@@ -40,13 +42,9 @@ export async function FetchUserProfileInfo({
         case 429:
           return left(new RateLimitedError())
         case 504:
-          return left(new Error('Server error. Please try again later.'))
+          return left(new ServerError())
         case 0:
-          return left(
-            new Error(
-              'Connection reset error. Please check your network or proxy settings.'
-            )
-          )
+          return left(new ConnectionError())
         default:
           return left(new Error('An unexpected error occurred'))
       }
