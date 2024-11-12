@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "outDir": "./dist/",
+    "rootDir": "./src/",
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "moduleResolution": "Node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "removeComments": true,
+    "useUnknownInCatchVariables": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@user/*": ["./src/domain/user/*"],
+      "@discord/*": ["./src/domain/discord/*"]
+    }
+  },
+  "exclude": ["node_modules/", "dist"],
+  "include": ["src/"]
+}

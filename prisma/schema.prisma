@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id            String  @id @map("user_id")
+  plan          String? @default("None")
+  planExpiresAt Int?    @default(0) @map("plan_expires_at")
+  guildId       String? @map("guild_id")
+  channelId     String? @map("channel_id")
+  token         String?
+  isOwner       Boolean @default(false) @map("is_owner")
+}
+
+model Keys {
+  id        String  @id @map("user_id")
+  used      Boolean @default(false)
+  type      String? @default("Unknown")
+  expiresAt Int?    @default(0) @map("expires_at")
+}

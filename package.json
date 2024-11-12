@@ -1,0 +1,35 @@
+{
+  "name": "scrapper",
+  "version": "1.0.0",
+  "main": "dist/app.js",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "env:load": "dotenv -e .env --",
+    "build": "tsc && tsc-alias",
+    "start:dev": "pnpm env:load tsx watch src/app.ts"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@esbuild-plugins/tsconfig-paths": "0.1.2",
+    "@types/node": "^22.8.4",
+    "@types/node-fetch": "2.6.11",
+    "prisma": "5.21.1",
+    "ts-node": "10.9.2",
+    "tsc-alias": "1.8.10",
+    "typescript": "5.6.3"
+  },
+  "dependencies": {
+    "@discordx/importer": "1.3.1",
+    "@prisma/client": "^5.21.1",
+    "discord.js": "^14.16.3",
+    "discord.js-selfbot-v13": "^3.4.2",
+    "discordx": "11.12.1",
+    "dotenv-cli": "7.4.2",
+    "https-proxy-agent": "7.0.5",
+    "node-fetch": "3.3.2",
+    "tsconfig-paths": "4.2.0",
+    "tsx": "4.19.2",
+    "zod": "^3.23.8"
+  }
+}
